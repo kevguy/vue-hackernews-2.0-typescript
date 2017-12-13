@@ -18,24 +18,24 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 
 export default {
   name: 'user-view',
 
   computed: {
     user () {
-      return this.$store.state.users[this.$route.params.id]
+      return (this as any).$store.state.users[(this as any).$route.params.id]
     }
   },
 
-  asyncData ({ store, route: { params: { id }}}) {
+  asyncData ({ store, route: { params: { id }}}: any) {
     return store.dispatch('FETCH_USER', { id })
   },
 
   title () {
-    return this.user
-      ? this.user.id
+    return (this as any).user
+      ? (this as any).user.id
       : 'User not found'
   }
 }

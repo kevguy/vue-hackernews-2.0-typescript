@@ -5,8 +5,8 @@ Vue.use(Router)
 
 // route-level code splitting
 const createListView = (id: any) => () => import('../views/CreateListView').then((m: any) => m.default(id))
-// const ItemView = () => import('../views/ItemView.vue')
-// const UserView = () => import('../views/UserView.vue')
+const ItemView = () => import('../views/ItemView.vue')
+const UserView = () => import('../views/UserView.vue')
 
 export function createRouter () {
   return new Router({
@@ -19,8 +19,8 @@ export function createRouter () {
       { path: '/show/:page(\\d+)?', component: createListView('show') },
       { path: '/ask/:page(\\d+)?', component: createListView('ask') },
       { path: '/job/:page(\\d+)?', component: createListView('job') },
-      // { path: '/item/:id(\\d+)', component: ItemView },
-      // { path: '/user/:id', component: UserView },
+      { path: '/item/:id(\\d+)', component: ItemView },
+      { path: '/user/:id', component: UserView },
       { path: '/', redirect: '/top' }
     ]
   } as any)

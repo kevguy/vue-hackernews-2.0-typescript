@@ -27,7 +27,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Spinner from '../components/Spinner.vue'
 import Comment from '../components/Comment.vue'
 
@@ -41,24 +41,24 @@ export default {
 
   computed: {
     item () {
-      return this.$store.state.items[this.$route.params.id]
+      return (this as any).$store.state.items[(this as any).$route.params.id]
     }
   },
 
   // We only fetch the item itself before entering the view, because
   // it might take a long time to load threads with hundreds of comments
   // due to how the HN Firebase API works.
-  asyncData ({ store, route: { params: { id }}}) {
+  asyncData ({ store, route: { params: { id }}}: any) {
     return store.dispatch('FETCH_ITEMS', { ids: [id] })
   },
 
   title () {
-    return this.item.title
+    return (this as any).item.title
   },
 
   // Fetch comments when mounted on the client
   beforeMount () {
-    this.fetchComments()
+    (this as any).fetchComments()
   },
 
   // refetch comments if item changed
@@ -68,24 +68,24 @@ export default {
 
   methods: {
     fetchComments () {
-      if (!this.item || !this.item.kids) {
+      if (!(this as any).item || !(this as any).item.kids) {
         return
       }
 
-      this.loading = true
-      fetchComments(this.$store, this.item).then(() => {
-        this.loading = false
+      (this as any).loading = true
+      fetchComments((this as any).$store, (this as any).item).then(() => {
+        (this as any).loading = false
       })
     }
   }
 }
 
 // recursively fetch all descendent comments
-function fetchComments (store, item) {
+function fetchComments (store: any, item: any) {
   if (item && item.kids) {
     return store.dispatch('FETCH_ITEMS', {
       ids: item.kids
-    }).then(() => Promise.all(item.kids.map(id => {
+    }).then(() => Promise.all(item.kids.map((id: any) => {
       return fetchComments(store, store.state.items[id])
     })))
   }

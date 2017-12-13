@@ -18,7 +18,7 @@
   </li>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'comment',
   props: ['id'],
@@ -29,11 +29,11 @@ export default {
   },
   computed: {
     comment () {
-      return this.$store.state.items[this.id]
+      return (this as any).$store.state.items[(this as any).id]
     }
   },
   methods: {
-    pluralize: n => n + (n === 1 ? ' reply' : ' replies')
+    pluralize: (n: any) => n + (n === 1 ? ' reply' : ' replies')
   }
 }
 </script>
