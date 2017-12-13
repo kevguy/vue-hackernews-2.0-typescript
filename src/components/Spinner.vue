@@ -11,7 +11,7 @@ export default {
   name: 'spinner',
   props: ['show'],
   serverCacheKey: (props: any) => props.show
-}
+};
 </script>
 
 <style lang="stylus">

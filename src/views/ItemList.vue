@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts">
-import { watchList } from '../api'
-import Item from '../components/Item.vue'
+import { watchList } from '../api';
+import Item from '../components/Item.vue';
 
 export default {
   name: 'item-list',
@@ -80,20 +80,20 @@ export default {
   methods: {
     // loadItems (to = this.page, from = -1) {
     loadItems (to: any, from = -1) {
-      (this as any).$bar.start()
+      (this as any).$bar.start();
       (this as any).$store.dispatch('FETCH_LIST_DATA', {
         type: (this as any).type
       }).then(() => {
         if ((this as any).page < 0 || (this as any).page > (this as any).maxPage) {
-          (this as any).$router.replace(`/${(this as any).type}/1`)
+          (this as any).$router.replace(`/${(this as any).type}/1`);
           return
         }
         (this as any).transition = from === -1
           ? null
           : to > from ? 'slide-left' : 'slide-right';
-        (this as any).displayedPage = to
-        (this as any).displayedItems = (this as any).$store.getters.activeItems
-        (this as any).$bar.finish()
+        (this as any).displayedPage = to;
+        (this as any).displayedItems = (this as any).$store.getters.activeItems;
+        (this as any).$bar.finish();
       })
     }
   }

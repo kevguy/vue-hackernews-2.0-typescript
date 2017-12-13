@@ -25,11 +25,11 @@ export default {
   data () {
     return {
       open: true
-    }
+    };
   },
   computed: {
     comment () {
-      return (this as any).$store.state.items[(this as any).id]
+      return (this as any).$store.state.items[(this as any).id];
     }
   },
   methods: {

@@ -34,7 +34,7 @@ export default {
   props: ['item'],
   // http://ssr.vuejs.org/en/caching.html#component-level-caching
   serverCacheKey: ({ item: { id, __lastUpdated, time }}: any) => {
-    return `${id}::${__lastUpdated}::${timeAgo(time)}`
+    return `${id}::${__lastUpdated}::${timeAgo(time)}`;
   }
 }
 </script>

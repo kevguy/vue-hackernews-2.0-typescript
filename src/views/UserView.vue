@@ -25,18 +25,18 @@ export default {
 
   computed: {
     user () {
-      return (this as any).$store.state.users[(this as any).$route.params.id]
+      return (this as any).$store.state.users[(this as any).$route.params.id];
     }
   },
 
   asyncData ({ store, route: { params: { id }}}: any) {
-    return store.dispatch('FETCH_USER', { id })
+    return store.dispatch('FETCH_USER', { id });
   },
 
   title () {
     return (this as any).user
       ? (this as any).user.id
-      : 'User not found'
+      : 'User not found';
   }
 }
 </script>
