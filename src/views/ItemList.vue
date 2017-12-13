@@ -38,47 +38,47 @@ export default {
       transition: 'slide-right',
       displayedPage: Number((this as any).$route.params.page) || 1,
       displayedItems: (this as any).$store.getters.activeItems
-    }
+    };
   },
 
   computed: {
     page () {
-      return Number((this as any).$route.params.page) || 1
+      return Number((this as any).$route.params.page) || 1;
     },
     maxPage () {
-      const { itemsPerPage, lists } = (this as any).$store.state
-      return Math.ceil(lists[(this as any).type].length / itemsPerPage)
+      const { itemsPerPage, lists } = (this as any).$store.state;
+      return Math.ceil(lists[(this as any).type].length / itemsPerPage);
     },
     hasMore () {
-      return (this as any).page < (this as any).maxPage
+      return (this as any).page < (this as any).maxPage;
     }
   },
 
   beforeMount () {
     if ((this as any).$root._isMounted) {
-      (this as any).loadItems((this as any).page)
+      (this as any).loadItems((this as any).page);
     }
     // watch the current list for realtime updates
     (this as any).unwatchList = watchList((this as any).type, (ids: any) => {
-      (this as any).$store.commit('SET_LIST', { type: (this as any).type, ids })
+      (this as any).$store.commit('SET_LIST', { type: (this as any).type, ids });
       (this as any).$store.dispatch('ENSURE_ACTIVE_ITEMS').then(() => {
-        (this as any).displayedItems = (this as any).$store.getters.activeItems
+        (this as any).displayedItems = (this as any).$store.getters.activeItems;
       })
     })
   },
 
   beforeDestroy () {
-    (this as any).unwatchList()
+    (this as any).unwatchList();
   },
 
   watch: {
     page (to: any, from: any) {
-      (this as any).loadItems(to, from)
+      (this as any).loadItems(to, from);
     }
   },
 
   methods: {
-    // loadItems (to = (this as any).page, from = -1) {
+    // loadItems (to = this.page, from = -1) {
     loadItems (to: any, from = -1) {
       (this as any).$bar.start()
       (this as any).$store.dispatch('FETCH_LIST_DATA', {

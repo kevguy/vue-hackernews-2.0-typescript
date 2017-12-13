@@ -20,66 +20,66 @@ export default {
       height: '2px',
       color: '#ffca2b',
       failedColor: '#ff0000',
-    }
+    };
   },
   methods: {
     start () {
-      (this as any).show = true
-      (this as any).canSuccess = true
+      (this as any).show = true;
+      (this as any).canSuccess = true;
       if ((this as any)._timer) {
-        clearInterval((this as any)._timer)
-        (this as any).percent = 0
+        clearInterval((this as any)._timer);
+        (this as any).percent = 0;
       }
-      (this as any)._cut = 10000 / Math.floor((this as any).duration)
+      (this as any)._cut = 10000 / Math.floor((this as any).duration);
       (this as any)._timer = setInterval(() => {
-        (this as any).increase((this as any)._cut * Math.random())
+        (this as any).increase((this as any)._cut * Math.random());
         if ((this as any).percent > 95) {
-          (this as any).finish()
+          (this as any).finish();
         }
       }, 100)
-      return this
+      return this;
     },
-    set (num) {
-      (this as any).show = true
-      (this as any).canSuccess = true
-      (this as any).percent = Math.floor(num)
-      return this
+    set (num: any) {
+      (this as any).show = true;
+      (this as any).canSuccess = true;
+      (this as any).percent = Math.floor(num);
+      return this;
     },
     get () {
-      return Math.floor((this as any).percent)
+      return Math.floor((this as any).percent);
     },
-    increase (num) {
-      (this as any).percent = (this as any).percent + Math.floor(num)
-      return this
+    increase (num: any) {
+      (this as any).percent = (this as any).percent + Math.floor(num);
+      return this;
     },
-    decrease (num) {
-      (this as any).percent = (this as any).percent - Math.floor(num)
-      return this
+    decrease (num: any) {
+      (this as any).percent = (this as any).percent - Math.floor(num);
+      return this;
     },
     finish () {
-      (this as any).percent = 100
-      (this as any).hide()
-      return this
+      (this as any).percent = 100;
+      (this as any).hide();
+      return this;
     },
     pause () {
-      clearInterval((this as any)._timer)
-      return this
+      clearInterval((this as any)._timer);
+      return this;
     },
     hide () {
-      clearInterval((this as any)._timer)
-      (this as any)._timer = null
+      clearInterval((this as any)._timer);
+      (this as any)._timer = null;
       setTimeout(() => {
-        (this as any).show = false
+        (this as any).show = false;
         (this as any).$nextTick(() => {
           setTimeout(() => {
-            (this as any).percent = 0
+            (this as any).percent = 0;
           }, 200)
         })
       }, 500)
-      return this
+      return this;
     },
     fail () {
-      (this as any).canSuccess = false
+      (this as any).canSuccess = false;
       return this
     }
   }

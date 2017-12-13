@@ -1,4 +1,5 @@
 import * as Firebase from 'firebase/app'
+import '@firebase/database'
 import * as LRU from 'lru-cache'
 
 export function createAPI ({ config, version }: { config: any, version: any }) {
