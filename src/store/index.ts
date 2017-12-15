@@ -35,11 +35,11 @@ export interface Item {
   id: number;
   kids: Array<number>,
   score: number;
-  time: number;
+  time: number | Date | undefined;
   title: string;
   type: string;
   url: string;
-  __lastUpdated: number;
+  __lastUpdated: number | Date | undefined;
 };
 
 export interface User {

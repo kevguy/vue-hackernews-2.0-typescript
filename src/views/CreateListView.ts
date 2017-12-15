@@ -1,4 +1,6 @@
 import ItemList from './ItemList.vue'
+import { Store } from 'vuex';
+import { State } from '../store/index';
 
 const camelize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
 
@@ -9,7 +11,7 @@ export default function createListView (type: string) {
   return {
     name: `${type}-stories-view`,
 
-    asyncData ({ store }: { store: any }) {
+    asyncData ({ store }: { store: Store<State> }) {
       return store.dispatch('FETCH_LIST_DATA', { type })
     },
 

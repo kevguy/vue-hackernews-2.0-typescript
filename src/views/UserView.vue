@@ -20,6 +20,18 @@
 
 <script lang="ts">
 
+import { Store } from 'vuex';
+import { Item, State } from '../store/index';
+
+interface AsyncData{
+  store: Store<State>;
+  route: {
+    params: {
+      id: number
+    }
+  };
+};
+
 export default {
   name: 'user-view',
 
@@ -29,7 +41,7 @@ export default {
     }
   },
 
-  asyncData ({ store, route: { params: { id }}}: any) {
+  asyncData ({ store, route: { params: { id }}}: AsyncData) {
     return store.dispatch('FETCH_USER', { id });
   },
 

@@ -39,7 +39,7 @@ export default {
       }, 100)
       return this;
     },
-    set (num: any) {
+    set (num: number) {
       this.show = true;
       this.canSuccess = true;
       this.percent = Math.floor(num);
@@ -48,11 +48,11 @@ export default {
     get () {
       return Math.floor(this.percent);
     },
-    increase (num: any) {
+    increase (num: number) {
       this.percent = this.percent + Math.floor(num);
       return this;
     },
-    decrease (num: any) {
+    decrease (num: number) {
       this.percent = this.percent - Math.floor(num);
       return this;
     },

@@ -59,7 +59,7 @@ export default {
       this.loadItems(this.page);
     }
     // watch the current list for realtime updates
-    this.unwatchList = watchList(this.type, (ids: any) => {
+    this.unwatchList = watchList(this.type, (ids: Array<number>) => {
       this.$store.commit('SET_LIST', { type: this.type, ids });
       this.$store.dispatch('ENSURE_ACTIVE_ITEMS').then(() => {
         this.displayedItems = this.$store.getters.activeItems;
@@ -72,14 +72,13 @@ export default {
   },
 
   watch: {
-    page (to: any, from: any) {
+    page (to: number, from: number) {
       this.loadItems(to, from);
     }
   },
 
   methods: {
-    // loadItems (to = this.page, from = -1) {
-    loadItems (to: any, from = -1) {
+    loadItems (to = this.page, from = -1) {
       this.$bar.start();
       this.$store.dispatch('FETCH_LIST_DATA', {
         type: this.type

@@ -27,14 +27,19 @@
 </template>
 
 <script lang="ts">
-import { timeAgo } from '../util/filters'
+import { timeAgo } from '../util/filters';
+import { Item } from '../store/index';
+
+interface CacheKey {
+  item: Partial<Item>
+}
 
 export default {
   name: 'news-item',
   props: ['item'],
   // http://ssr.vuejs.org/en/caching.html#component-level-caching
-  serverCacheKey: ({ item: { id, __lastUpdated, time }}: any) => {
-    return `${id}::${__lastUpdated}::${timeAgo(time)}`;
+  serverCacheKey: ({ item: { id, __lastUpdated, time }}: CacheKey) => {
+    return `${id}::${__lastUpdated}::${timeAgo(time as Date)}`;
   }
 }
 </script>

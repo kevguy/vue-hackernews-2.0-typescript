@@ -31,6 +31,18 @@
 import Spinner from '../components/Spinner.vue';
 import Comment from '../components/Comment.vue';
 
+import { Store } from 'vuex';
+import { Item, State } from '../store/index';
+
+interface AsyncData{
+  store: Store<State>;
+  route: {
+    params: {
+      id: number
+    }
+  };
+};
+
 export default {
   name: 'item-view',
   components: { Spinner, Comment },
@@ -48,7 +60,7 @@ export default {
   // We only fetch the item itself before entering the view, because
   // it might take a long time to load threads with hundreds of comments
   // due to how the HN Firebase API works.
-  asyncData ({ store, route: { params: { id }}}: any) {
+  asyncData ({ store, route: { params: { id }}}: AsyncData) {
     return store.dispatch('FETCH_ITEMS', { ids: [id] });
   },
 
@@ -81,11 +93,11 @@ export default {
 }
 
 // recursively fetch all descendent comments
-function fetchComments (store: any, item: any) {
+function fetchComments (store: Store<State>, item: Item) : Promise<any> | undefined {
   if (item && item.kids) {
     return store.dispatch('FETCH_ITEMS', {
       ids: item.kids
-    }).then(() => Promise.all(item.kids.map((id: any) => {
+    }).then(() => Promise.all(item.kids.map((id: number) => {
       return fetchComments(store, store.state.items[id]);
     })))
   }

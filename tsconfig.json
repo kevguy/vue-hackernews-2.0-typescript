@@ -8,7 +8,9 @@
         "target": "es5",
         "experimentalDecorators": true,
         "noImplicitThis": false,
-        "noImplicitAny": true
+        "noImplicitAny": true,
+        "noImplicitReturns": false,
+        "strictNullChecks": false
     },
     "include": [
         "./src/**/*"
