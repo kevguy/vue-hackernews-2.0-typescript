@@ -1,18 +1,18 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import Router, { RouterOptions } from 'vue-router'
 
 Vue.use(Router)
 
 // route-level code splitting
-const createListView = (id: any) => () => import('../views/CreateListView').then((m: any) => m.default(id))
+const createListView = (id: string) => () => import('../views/CreateListView').then((m: any) => m.default(id))
 const ItemView = () => import('../views/ItemView.vue')
 const UserView = () => import('../views/UserView.vue')
 
-export function createRouter () {
+export function createRouter (): Router {
   return new Router({
     mode: 'history',
     fallback: false,
-    scrollBehavior: () => ({ y: 0 }),
+    scrollBehavior: () => ({ x: 0, y: 0 }),
     routes: [
       { path: '/top/:page(\\d+)?', component: createListView('top') },
       { path: '/new/:page(\\d+)?', component: createListView('new') },
@@ -23,5 +23,5 @@ export function createRouter () {
       { path: '/user/:id', component: UserView },
       { path: '/', redirect: '/top' }
     ]
-  } as any)
+  } as RouterOptions)
 }
