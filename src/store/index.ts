@@ -4,9 +4,11 @@ import actions from './actions';
 import mutations from './mutations';
 import getters from './getters';
 
+import { Store } from 'vuex';
+
 Vue.use(Vuex);
 
-export function createStore () {
+export function createStore (): Store<State> {
   return new Vuex.Store({
     state: {
       activeType: null,
@@ -25,7 +27,28 @@ export function createStore () {
     mutations,
     getters
   });
-}
+};
+
+export interface Item {
+  by: string;
+  descendants: number;
+  id: number;
+  kids: Array<number>,
+  score: number;
+  time: number;
+  title: string;
+  type: string;
+  url: string;
+  __lastUpdated: number;
+};
+
+export interface User {
+  created: number;
+  id: string;
+  karma: number;
+  submitted: Array<number>;
+  __lastUpdated: number;
+};
 
 export interface List {
   top: Array<number>;
@@ -43,17 +66,4 @@ export interface State {
   users: any;
   lists: List;
   route?: any;
-};
-
-export interface Item {
-  by: string;
-  descendants: number;
-  id: number;
-  kids: Array<number>,
-  score: number;
-  time: number;
-  title: string;
-  type: string;
-  url: string;
-  __lastUpdated: number;
 };

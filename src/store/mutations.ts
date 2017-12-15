@@ -1,6 +1,7 @@
 import Vue from 'vue';
 
-import { State , Item } from './index';
+import { MutationTree } from 'vuex';
+import { State , Item, User } from './index';
 
 interface SetActiveTypePayload { type: string };
 
@@ -8,9 +9,9 @@ interface SetListPayload { type: string, ids: Array<number> };
 
 interface SetItemsPayload { items: Array<Item> };
 
-interface SetUserPayload { id: number; user: any; };
+interface SetUserPayload { id: number; user: User; };
 
-export default {
+export default <MutationTree<State>>{
   SET_ACTIVE_TYPE: (state: State, { type }: SetActiveTypePayload) => {
     state.activeType = type;
   },
