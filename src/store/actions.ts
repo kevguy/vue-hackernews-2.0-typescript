@@ -4,7 +4,25 @@ import {
   fetchIdsByType
 } from '../api'
 
-export default {
+import { State } from './index';
+import { ActionTree, ActionContext, Dispatch, Commit } from "vuex";
+
+// type Partial<T> = {
+//     [P in keyof T]?: T[P];
+// }
+
+// type PartialActionContext<S, R> = Partial<ActionContext<S, R>>
+
+// interface PartialActionContext<S, R> {
+//   dispatch?: Dispatch;
+//   commit?: Commit;
+//   state?: S;
+//   getters?: any;
+//   rootState?: R;
+//   rootGetters?: any;
+// }
+
+export default <ActionTree<State, any>>{
   // ensure data for rendering given list type
   FETCH_LIST_DATA: ({ commit, dispatch, state }: any, { type }: any) => {
     commit('SET_ACTIVE_TYPE', { type })

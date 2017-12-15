@@ -1,7 +1,11 @@
-export default {
+import { GetterTree, Getter } from 'vuex';
+import { State } from './index';
+
+
+export default <GetterTree<State, any>>{
   // ids of the items that should be currently displayed based on
   // current list type and current pagination
-  activeIds (state: any) {
+  activeIds (state: State) {
     const { activeType, itemsPerPage, lists } = state
 
     if (!activeType) {
@@ -17,7 +21,7 @@ export default {
 
   // items that should be currently displayed.
   // this Array may not be fully fetched.
-  activeItems (state: any, getters: any) {
-    return getters.activeIds.map((id: any) => state.items[id]).filter((_: any) => _)
+  activeItems (state: State, getters: any) {
+    return getters.activeIds.map((id: number) => state.items[id]).filter((_: any) => _)
   }
 }
