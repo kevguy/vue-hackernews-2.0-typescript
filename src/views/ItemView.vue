@@ -41,7 +41,7 @@ export default {
 
   computed: {
     item () {
-      return (this as any).$store.state.items[(this as any).$route.params.id];
+      return this.$store.state.items[this.$route.params.id];
     }
   },
 
@@ -53,12 +53,12 @@ export default {
   },
 
   title () {
-    return (this as any).item.title;
+    return this.item.title;
   },
 
   // Fetch comments when mounted on the client
   beforeMount () {
-    (this as any).fetchComments();
+    this.fetchComments();
   },
 
   // refetch comments if item changed
@@ -68,13 +68,13 @@ export default {
 
   methods: {
     fetchComments () {
-      if (!(this as any).item || !(this as any).item.kids) {
+      if (!this.item || !this.item.kids) {
         return;
       }
 
-      (this as any).loading = true
-      fetchComments((this as any).$store, (this as any).item).then(() => {
-        (this as any).loading = false;
+      this.loading = true
+      fetchComments(this.$store, this.item).then(() => {
+        this.loading = false;
       })
     }
   }

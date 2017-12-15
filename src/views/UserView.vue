@@ -25,7 +25,7 @@ export default {
 
   computed: {
     user () {
-      return (this as any).$store.state.users[(this as any).$route.params.id];
+      return this.$store.state.users[this.$route.params.id];
     }
   },
 
@@ -34,8 +34,8 @@ export default {
   },
 
   title () {
-    return (this as any).user
-      ? (this as any).user.id
+    return this.user
+      ? this.user.id
       : 'User not found';
   }
 }

@@ -29,11 +29,11 @@ export default {
   },
   computed: {
     comment () {
-      return (this as any).$store.state.items[(this as any).id];
+      return this.$store.state.items[this.id];
     }
   },
   methods: {
-    pluralize: (n: any) => n + (n === 1 ? ' reply' : ' replies')
+    pluralize: (n: number) => n + (n === 1 ? ' reply' : ' replies')
   }
 }
 </script>

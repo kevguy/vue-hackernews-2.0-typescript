@@ -24,62 +24,62 @@ export default {
   },
   methods: {
     start () {
-      (this as any).show = true;
-      (this as any).canSuccess = true;
-      if ((this as any)._timer) {
-        clearInterval((this as any)._timer);
-        (this as any).percent = 0;
+      this.show = true;
+      this.canSuccess = true;
+      if (this._timer) {
+        clearInterval(this._timer);
+        this.percent = 0;
       }
-      (this as any)._cut = 10000 / Math.floor((this as any).duration);
-      (this as any)._timer = setInterval(() => {
-        (this as any).increase((this as any)._cut * Math.random());
-        if ((this as any).percent > 95) {
-          (this as any).finish();
+      this._cut = 10000 / Math.floor(this.duration);
+      this._timer = setInterval(() => {
+        this.increase(this._cut * Math.random());
+        if (this.percent > 95) {
+          this.finish();
         }
       }, 100)
       return this;
     },
     set (num: any) {
-      (this as any).show = true;
-      (this as any).canSuccess = true;
-      (this as any).percent = Math.floor(num);
+      this.show = true;
+      this.canSuccess = true;
+      this.percent = Math.floor(num);
       return this;
     },
     get () {
-      return Math.floor((this as any).percent);
+      return Math.floor(this.percent);
     },
     increase (num: any) {
-      (this as any).percent = (this as any).percent + Math.floor(num);
+      this.percent = this.percent + Math.floor(num);
       return this;
     },
     decrease (num: any) {
-      (this as any).percent = (this as any).percent - Math.floor(num);
+      this.percent = this.percent - Math.floor(num);
       return this;
     },
     finish () {
-      (this as any).percent = 100;
-      (this as any).hide();
+      this.percent = 100;
+      this.hide();
       return this;
     },
     pause () {
-      clearInterval((this as any)._timer);
+      clearInterval(this._timer);
       return this;
     },
     hide () {
-      clearInterval((this as any)._timer);
-      (this as any)._timer = null;
+      clearInterval(this._timer);
+      this._timer = null;
       setTimeout(() => {
-        (this as any).show = false;
-        (this as any).$nextTick(() => {
+        this.show = false;
+        this.$nextTick(() => {
           setTimeout(() => {
-            (this as any).percent = 0;
+            this.percent = 0;
           }, 200)
         })
       }, 500)
       return this;
     },
     fail () {
-      (this as any).canSuccess = false;
+      this.canSuccess = false;
       return this
     }
   }

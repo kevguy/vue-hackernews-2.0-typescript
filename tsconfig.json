@@ -6,7 +6,9 @@
         "module": "esnext",
         "moduleResolution": "node",
         "target": "es5",
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "noImplicitThis": false,
+        "noImplicitAny": true
     },
     "include": [
         "./src/**/*"

@@ -36,64 +36,64 @@ export default {
   data () {
     return {
       transition: 'slide-right',
-      displayedPage: Number((this as any).$route.params.page) || 1,
-      displayedItems: (this as any).$store.getters.activeItems
+      displayedPage: Number(this.$route.params.page) || 1,
+      displayedItems: this.$store.getters.activeItems
     };
   },
 
   computed: {
     page () {
-      return Number((this as any).$route.params.page) || 1;
+      return Number(this.$route.params.page) || 1;
     },
     maxPage () {
-      const { itemsPerPage, lists } = (this as any).$store.state;
-      return Math.ceil(lists[(this as any).type].length / itemsPerPage);
+      const { itemsPerPage, lists } = this.$store.state;
+      return Math.ceil(lists[this.type].length / itemsPerPage);
     },
     hasMore () {
-      return (this as any).page < (this as any).maxPage;
+      return this.page < this.maxPage;
     }
   },
 
   beforeMount () {
-    if ((this as any).$root._isMounted) {
-      (this as any).loadItems((this as any).page);
+    if (this.$root._isMounted) {
+      this.loadItems(this.page);
     }
     // watch the current list for realtime updates
-    (this as any).unwatchList = watchList((this as any).type, (ids: any) => {
-      (this as any).$store.commit('SET_LIST', { type: (this as any).type, ids });
-      (this as any).$store.dispatch('ENSURE_ACTIVE_ITEMS').then(() => {
-        (this as any).displayedItems = (this as any).$store.getters.activeItems;
+    this.unwatchList = watchList(this.type, (ids: any) => {
+      this.$store.commit('SET_LIST', { type: this.type, ids });
+      this.$store.dispatch('ENSURE_ACTIVE_ITEMS').then(() => {
+        this.displayedItems = this.$store.getters.activeItems;
       })
     })
   },
 
   beforeDestroy () {
-    (this as any).unwatchList();
+    this.unwatchList();
   },
 
   watch: {
     page (to: any, from: any) {
-      (this as any).loadItems(to, from);
+      this.loadItems(to, from);
     }
   },
 
   methods: {
     // loadItems (to = this.page, from = -1) {
     loadItems (to: any, from = -1) {
-      (this as any).$bar.start();
-      (this as any).$store.dispatch('FETCH_LIST_DATA', {
-        type: (this as any).type
+      this.$bar.start();
+      this.$store.dispatch('FETCH_LIST_DATA', {
+        type: this.type
       }).then(() => {
-        if ((this as any).page < 0 || (this as any).page > (this as any).maxPage) {
-          (this as any).$router.replace(`/${(this as any).type}/1`);
+        if (this.page < 0 || this.page > this.maxPage) {
+          this.$router.replace(`/${this.type}/1`);
           return
         }
-        (this as any).transition = from === -1
+        this.transition = from === -1
           ? null
           : to > from ? 'slide-left' : 'slide-right';
-        (this as any).displayedPage = to;
-        (this as any).displayedItems = (this as any).$store.getters.activeItems;
-        (this as any).$bar.finish();
+        this.displayedPage = to;
+        this.displayedItems = this.$store.getters.activeItems;
+        this.$bar.finish();
       })
     }
   }
